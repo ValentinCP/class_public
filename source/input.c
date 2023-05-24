@@ -4333,8 +4333,8 @@ int input_read_parameters_primordial(struct file_content * pfc,
                errmsg,
                errmsg);
 
-  printf(flag1);
-  printf(string1);
+  printf(&flag1);
+  printf(&string1);
 
     /* Complete set of parameters */
     if (flag1 == _TRUE_) {
@@ -4353,7 +4353,7 @@ int input_read_parameters_primordial(struct file_content * pfc,
       }
       /*end edit*/
       else{
-        class_stop(errmsg,"You specified 'full_potential' as '%s'. It has to be one of {'polynomial','higgs_inflation','brane_inflation','KKLT_mirror}.",string1);
+        class_stop(errmsg,"You specified 'full_potential' as '%s'. It has to be one of {'polynomial','higgs_inflation','brane_inflation','KKLT_mirror'}.",string1);
 
       }
     }

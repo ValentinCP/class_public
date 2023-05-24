@@ -1039,7 +1039,7 @@ int primordial_inflation_potential(
           but in fact we study a more general one (same behaviour for big phis, but not divergent for small phi)
               V_KKLT(phi) = M^4 / ( 1 + (phi/mu)^-p )
     */
-
+   
   case KKLT_mirror:
     // V0 = M^4
     // V1 = mu
@@ -1048,9 +1048,12 @@ int primordial_inflation_potential(
     e = ppm->V3 - phi;
     l = pow(ppm->V1,ppm->V2)+pow(e,ppm->V2);
 
-    *V = ppm->V0/pow(e/ppm->V1,ppm->V2);
-    *dV = -1*ppm->V0*ppm->V2*pow(ppm->V1,ppm->V2)*pow(e,ppm->V2  -1)/pow(l,2);
-    *ddV = ppm->V0*ppm->V2*pow(ppm->V1,ppm->V2)*((ppm->V2 -1)*pow(ppm->V1,ppm->V2) - (ppm->V2 +1)*pow(e,ppm->V2 -1) )*pow(e,ppm->V2 -2)/pow(l,3);
+  //   *V = ppm->V0/(1+pow((ppm->V1)/e,ppm->V2));
+  //   *dV = -1*ppm->V0*ppm->V2*pow(ppm->V1,ppm->V2)*pow(e,ppm->V2  -1)/pow(l,2);
+  //   *ddV = ppm->V0*ppm->V2*pow(ppm->V1,ppm->V2)*((ppm->V2 -1)*pow(ppm->V1,ppm->V2) - (ppm->V2 +1)*pow(e,ppm->V2 -1) )*pow(e,ppm->V2 -2)/pow(l,3);
+      *V = ppm->V3 -phi;
+      *dV = -1;
+      *ddV = 0;
   case brane_inflation:
     // correspondence with Encyclopedia Inflatianoris, section 5.19, Brane Inflation
     
@@ -1061,19 +1064,9 @@ int primordial_inflation_potential(
     // mu = 
     // phi = 
 
-    e = ppm->V3 - phi;
-    // e = phi_end - phi   (symmétrie miroir!!!)
-
-    // *V   = ppm->V0/(1+pow(e/ppm->V1,-ppm->V2));
-    *V = 0;
-    *dV = 0;
-    *ddV = 0;
-    // *dV  = - ( ppm->V0 * ppm->V2 * pow(e,ppm->V2 -1)/(pow( pow(e,ppm->V2)+pow(ppm->V1,ppm->V2),2))  ) ;
-    // *ddV = (  ppm->V2*pow(ppm->V1,ppm->V2)*( (ppm->V2 -1)*pow(ppm->V1,ppm->V2) - (ppm->V2 +1)*pow(e,ppm->V2) ) / pow( pow(e,ppm->V2)+pow(ppm->V1,ppm->V2) ,3)   );
-
-    // *V   = ppm->V0/(1+pow(phi/ppm->V1,-ppm->V2));
-    // *dV  = ppm->V2 * ppm->V0 * pow(phi,ppm->V2 -1)/(pow( pow(phi,ppm->V2)+pow(ppm->V1,ppm->V2),2))   ;
-    // *ddV = ppm->V2*pow(ppm->V1,ppm->V2)*( (ppm->V2 -1)*pow(ppm->V1,ppm->V2) - (ppm->V2 +1)*pow(phi,ppm->V2) ) / pow( pow(phi,ppm->V2)+pow(ppm->V1,ppm->V2) ,3)   ;
+    *V   = ppm->V0/(1+pow(phi/ppm->V1,-ppm->V2));
+    *dV  = ppm->V2 * ppm->V0 * pow(phi,ppm->V2 -1)/(pow( pow(phi,ppm->V2)+pow(ppm->V1,ppm->V2),2))   ;
+    *ddV = ppm->V2*pow(ppm->V1,ppm->V2)*( (ppm->V2 -1)*pow(ppm->V1,ppm->V2) - (ppm->V2 +1)*pow(phi,ppm->V2) ) / pow( pow(phi,ppm->V2)+pow(ppm->V1,ppm->V2) ,3)   ;
 
   break;
 
